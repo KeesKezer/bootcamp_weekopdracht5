@@ -66,12 +66,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Redirect user to welcome page
                             header("location: welcome.php");
                         } else{
-                            // Display an error message if password is not valid
+
                             $password_err = "Het ingevulde wachtwoord klopte niet.";
                         }
                     }
                 } else{
-                    // Display an error message if username doesn't exist
+                    
                     $username_err = "Geen account met deze gebruikersnaam gevonden.";
                 }
             } else{

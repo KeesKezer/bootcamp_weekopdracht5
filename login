@@ -1,33 +1,33 @@
 <?php
-
+// Initialize the session
 session_start();
 
-// checks if user is logged in
+// Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: welcome.php");
     exit;
 }
 
-
+// Include config file
 require_once "db.php";
 
-
+// Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-
+    // Check if username is empty
     if(empty(trim($_POST["username"]))){
-        $username_err = "Vul uw gebruikersnaam in.";
+        $username_err = "Please enter username.";
     } else{
         $username = trim($_POST["username"]);
     }
 
-
+    // Check if password is empty
     if(empty(trim($_POST["password"]))){
-        $password_err = "Vul uw wachtwoord in.";
+        $password_err = "Please enter your password.";
     } else{
         $password = trim($_POST["password"]);
     }
@@ -37,14 +37,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         $sql = "SELECT id, username, password FROM users WHERE username = ?";
 
-        if($stmt = mysqli_prepare($db, $sql)){
+        if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 
             // Set parameters
             $param_username = $username;
 
-
+            // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Store result
                 mysqli_stmt_store_result($stmt);
@@ -67,15 +67,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             header("location: welcome.php");
                         } else{
                             // Display an error message if password is not valid
-                            $password_err = "Het ingevulde wachtwoord klopte niet.";
+                            $password_err = "The password you entered was not valid.";
                         }
                     }
                 } else{
                     // Display an error message if username doesn't exist
-                    $username_err = "Geen account met deze gebruikersnaam gevonden.";
+                    $username_err = "No account found with that username.";
                 }
             } else{
-                echo "Er ging iets verkeerd.";
+                echo "Oops! Something went wrong. Please try again later.";
             }
         }
 
@@ -84,7 +84,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Close connection
-    mysqli_close($db);
+    mysqli_close($link);
 }
 ?>
 
@@ -93,9 +93,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="blog.css">
-    <?php require_once ("header.php")?>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <style type="text/css">
+        body{ font: 14px sans-serif; }
+        .wrapper{ width: 350px; padding: 20px; }
+    </style>
 </head>
 <body>
     <div class="wrapper">
@@ -115,7 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Heeft u nog geen account? hier kunt u zich <a href="register.php">registreren</a>.</p>
+            <p>Heeft u nog geen account? hier kunt u zich registreren <a href="register.php">Sign up now</a>.</p>
         </form>
     </div>
 </body>

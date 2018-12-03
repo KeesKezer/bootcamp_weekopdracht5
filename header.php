@@ -4,6 +4,7 @@
     <a class="active" href="index.php">Home</a>
     <a href="post.php">Post bericht</a>
     <a href="add_category.php">Voeg categorie toe</a>
+    <a href="search_blog.php">Zoek</a>
 
   </div>
 </div>

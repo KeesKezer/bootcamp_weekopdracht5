@@ -38,8 +38,8 @@
     $results = mysqli_query($db, "SELECT * FROM posts
             WHERE (`title` LIKE '%".$search."%') OR (`content` LIKE '%".$search."%')") or die(mysqli_error($db));
     $posts = "";
-  
-  }
+
+
 
     if(mysqli_num_rows($results) > 0){ // if one or more rows are returned do following
 
@@ -65,6 +65,7 @@
           echo $posts  ;
         } else {
           echo "Er zijn geen posts";
+}
 }
 ?>
 

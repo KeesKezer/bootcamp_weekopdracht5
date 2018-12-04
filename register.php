@@ -1,5 +1,5 @@
 <?php
-// Include config file
+
 require_once "db.php";
 
 // Define variables and initialize with empty values
@@ -34,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $username = trim($_POST["username"]);
                 }
             } else{
-                echo "Oops! Something went wrong. Please try again later.";
+                echo "Er ging iets fout.";
             }
         }
 

@@ -7,6 +7,7 @@
     <a href="login.php">Login</a>
     <a href="register.php">Registreer</a>
     <a href="search_blog.php">Zoek</a>
+    <?php echo htmlspecialchars($_SESSION["username"]); ?>
 
   </div>
 </div>

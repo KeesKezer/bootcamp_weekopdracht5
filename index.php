@@ -65,9 +65,11 @@ include_once("db.php");
                 break;
             default:
               $sql = "SELECT * FROM posts INNER JOIN categories on  posts.category_id = categories.id  ";
+
             }
         }  else {
           $sql = "SELECT * FROM posts INNER JOIN categories on  posts.category_id = categories.id  ";
+
           }
 
 
@@ -76,16 +78,19 @@ include_once("db.php");
 
 
 
+
       if(mysqli_num_rows($res) > 0) {
         while($row = mysqli_fetch_assoc($res)) {
 
           $id = $row['id'];
+          $blog_id = $row['blog_id'];
+
           $title = $row['title'];
           $content = $row['content'];
           $date = $row['date'];
           $cat = $row['name'];
 
-          $admin = "<div><a href = 'del_post.php?pid=$id'>Delete</a>&nbsp;<a href = 'edit_post.php?pid=$id'>Edit</a</div";
+          $admin = "<div><a href = 'del_post.php?id=$blog_id'>Delete</a>&nbsp;<a href = 'edit_post.php?blog_id=$blog_id'>Edit</a</div";
 
 
           $posts .=  "<div class = blog>
